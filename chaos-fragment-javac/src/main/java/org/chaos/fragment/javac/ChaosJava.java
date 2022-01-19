@@ -32,9 +32,11 @@ public class ChaosJava {
      *
      * //编译为原始类的，内部类？？？
      * class A{
+     *     private String a;
+     *     private static String b;
      *     public class X {
      *         public void newMethod(){
-     *
+     *              System.out.println("this:", a + b);
      *         }
      *     }
      * }
