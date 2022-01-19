@@ -15,3 +15,7 @@ java 片段代码编译，是用于混沌工程，业务演练的一种技术。
 Chaos.javac(Helloword.class, "");
 
 ```
+
+# 编码规范
+
+https://github.com/alibaba/p3c/tree/master/p3c-formatter
