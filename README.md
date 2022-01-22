@@ -1,6 +1,6 @@
 
-[![Build Status](https://travis-ci.org/deonwu/chaos_fragment_javac.svg?branch=master)](https://travis-ci.org/deonwu/chaos_fragment_javac)
-[![codecov](https://codecov.io/gh/deonwu/chaos_fragment_javac/branch/master/graph/badge.svg)](https://codecov.io/gh/deonwu/chaos_fragment_javac)
+[![Build Status](https://app.travis-ci.com/deonwu/chaos_fragment_javac.svg?branch=main)](https://app.travis-ci.com/deonwu/chaos_fragment_javac)
+[![codecov](https://codecov.io/gh/deonwu/chaos_fragment_javac/branch/main/graph/badge.svg?token=Bh6OPmpuDt)](https://codecov.io/gh/deonwu/chaos_fragment_javac)
 
 
 # chaos_fragment_javac
