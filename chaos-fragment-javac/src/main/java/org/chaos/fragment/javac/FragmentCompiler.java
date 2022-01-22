@@ -12,11 +12,15 @@
  */
 package org.chaos.fragment.javac;
 
+import org.apache.commons.lang3.StringUtils;
 import org.chaos.fragment.javac.jdk.CompileClassLoader;
 import org.chaos.fragment.javac.jdk.CompileFileManager;
 import org.chaos.fragment.javac.jdk.StringJavaFileObject;
 
 import javax.tools.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author DeonWu
@@ -26,7 +30,7 @@ public class FragmentCompiler {
 
     private DiagnosticCollector<JavaFileObject> DIAGNOSTIC_COLLECTION = new DiagnosticCollector<>();
 
-    public void doCompiler(String source){
+    public Class doCompiler(String className, String source) throws ClassNotFoundException {
 
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
@@ -34,13 +38,31 @@ public class FragmentCompiler {
 
         CompileClassLoader customClassLoader = new CompileClassLoader(Thread.currentThread().getContextClassLoader());
         CompileFileManager customFileManager = new CompileFileManager(fileManager, customClassLoader);
-       // compiler.getTask();
+        // compiler.getTask();
 
-        //CharSequenceJava
-        SimpleJavaFileObject f = new StringJavaFileObject("org.chaos.Hello", source);
+        // CharSequenceJava
+        SimpleJavaFileObject f = new StringJavaFileObject(className, source);
 
-        //fileManager.
+        customFileManager.addJavaFileObject(StandardLocation.SOURCE_PATH,
+            StringUtils.substringBeforeLast(className, "."), StringUtils.substringAfterLast(className, ".") + ".java",
+            f);
 
+        List<String> options = Arrays.asList("-source", "1.6");
+        JavaCompiler.CompilationTask task =
+            compiler.getTask(null, customFileManager, DIAGNOSTIC_COLLECTION, options, null, Arrays.asList(f));
 
+        Boolean ret = task.call();
+        if (!ret) {
+            List<Diagnostic<? extends JavaFileObject>> diagnostics = DIAGNOSTIC_COLLECTION.getDiagnostics();
+
+            for(Diagnostic<? extends JavaFileObject> d : diagnostics){
+                System.out.println(d.getKind() + ", error:" + d.getMessage(Locale.CHINA));
+
+            }
+            //throw new RuntimeException("编辑错误");
+        }
+
+        return customClassLoader.loadClass(className);
     }
+
 }

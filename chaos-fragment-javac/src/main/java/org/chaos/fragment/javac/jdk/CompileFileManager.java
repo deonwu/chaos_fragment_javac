@@ -55,7 +55,7 @@ public class CompileFileManager extends ForwardingJavaFileManager<JavaFileManage
         StringJavaFileObject f = new StringJavaFileObject(className, kind);
 
         classLoader.addJavaFileObject(className, f);
-
+        System.out.println("new File:" + location.getName() + "/" + className + "/" + sibling.toUri() + ", k:" + kind.name());
         return f;
     }
 

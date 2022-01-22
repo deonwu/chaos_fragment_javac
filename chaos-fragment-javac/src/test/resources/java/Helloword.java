@@ -1,7 +1,7 @@
 
 package hello;
 
-public class HelloWorld {
+ class HelloWorld {
 
     public String sayHello(String name) {
         return "hello " + name;

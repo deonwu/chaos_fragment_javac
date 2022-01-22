@@ -49,9 +49,12 @@ public class ChaosJava {
      * @param source
      * @return class 返回编译成功的class。
      */
-    public Class compile(Class hosted, String className, String source) {
+    public Class compile(Class hosted, String className, String source) throws ClassNotFoundException {
+        FragmentCompiler c = new FragmentCompiler();
 
-        return null;
+        Class ret = c.doCompiler(className, source);
+
+        return ret;
     }
 
     /**
