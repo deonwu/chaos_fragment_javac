@@ -21,6 +21,9 @@ package org.chaos.fragment.javac;
 public class ChaosJava {
 
     /**
+     * 参考：
+     * https://baijiahao.baidu.com/s?id=1668714016975233524&wfr=spider&for=pc
+     *
      * 指定一个宿主类，和代码片段。进行编译一个新的代码class。如果编译出错，抛出异常。
      *
      * 1. 解析代码的AST， 语法树。
