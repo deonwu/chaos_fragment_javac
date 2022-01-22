@@ -26,9 +26,13 @@ public class StringJavaFileObject extends SimpleJavaFileObject {
     private ByteArrayOutputStream classByte = null;
 
     public StringJavaFileObject(String className, String soruce) {
-        super(asURI(className), Kind.SOURCE);
+        super(asURI(className + ".class"), Kind.SOURCE);
 
         this.source = soruce;
+    }
+
+    public StringJavaFileObject(String className, Kind kind){
+        super(asURI(className), kind);
     }
 
     @Override
@@ -53,10 +57,16 @@ public class StringJavaFileObject extends SimpleJavaFileObject {
      * @return
      */
     public byte[] getClassByte(){
-        return classByte.toByteArray();
+        return classByte != null ? classByte.toByteArray() : null;
     }
 
-    private static URI asURI(String name) {
+    /**
+     * 转换为一个uri 对象。
+     *
+     * @param name
+     * @return
+     */
+    public static URI asURI(String name) {
         try {
             return new URI(name);
         } catch (URISyntaxException e) {

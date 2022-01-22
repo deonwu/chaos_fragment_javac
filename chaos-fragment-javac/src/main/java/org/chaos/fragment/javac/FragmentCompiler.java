@@ -12,6 +12,8 @@
  */
 package org.chaos.fragment.javac;
 
+import org.chaos.fragment.javac.jdk.CompileClassLoader;
+import org.chaos.fragment.javac.jdk.CompileFileManager;
 import org.chaos.fragment.javac.jdk.StringJavaFileObject;
 
 import javax.tools.*;
@@ -29,10 +31,16 @@ public class FragmentCompiler {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
         JavaFileManager fileManager = compiler.getStandardFileManager(DIAGNOSTIC_COLLECTION, null, null);
+
+        CompileClassLoader customClassLoader = new CompileClassLoader(Thread.currentThread().getContextClassLoader());
+        CompileFileManager customFileManager = new CompileFileManager(fileManager, customClassLoader);
        // compiler.getTask();
 
         //CharSequenceJava
         SimpleJavaFileObject f = new StringJavaFileObject("org.chaos.Hello", source);
+
+        //fileManager.
+
 
     }
 }

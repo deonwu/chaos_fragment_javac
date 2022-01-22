@@ -13,6 +13,7 @@
 package org.chaos.fragment.javac.jdk;
 
 import javax.tools.JavaFileObject;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,10 @@ public class CompileClassLoader extends ClassLoader {
     private static final String CLASS_EXT = ".class";
 
     private final Map<String, JavaFileObject> javaFileObjectMap = new HashMap<>();
+
+    public CompileClassLoader(ClassLoader parent){
+        super(parent);
+    }
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
@@ -43,14 +48,30 @@ public class CompileClassLoader extends ClassLoader {
         return super.findClass(name);
     }
 
+    /**
+     * 将class 定义作为资源返回。
+     *
+     * @param name
+     * @return
+     */
     @Override
     public InputStream getResourceAsStream(String name) {
 
         if(name.endsWith(CLASS_EXT)){
             String resourceName = name.substring(0, name.length() - CLASS_EXT.length()).replace('/', '.');
-            
+            JavaFileObject file = javaFileObjectMap.get(resourceName);
+            if(file instanceof StringJavaFileObject){
+                StringJavaFileObject fileObject = (StringJavaFileObject)file;
+                if(fileObject.getClassByte() != null){
+                    return new ByteArrayInputStream(fileObject.getClassByte());
+                }
+            }
         }
 
         return super.getResourceAsStream(name);
+    }
+
+    public void addJavaFileObject(String className, JavaFileObject fileObject){
+        javaFileObjectMap.put(className, fileObject);
     }
 }
