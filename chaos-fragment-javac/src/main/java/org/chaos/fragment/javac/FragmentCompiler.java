@@ -41,7 +41,7 @@ public class FragmentCompiler {
         // compiler.getTask();
 
         // CharSequenceJava
-        SimpleJavaFileObject f = new StringJavaFileObject(className, source);
+        SimpleJavaFileObject f = new StringJavaFileObject(StringUtils.substringAfterLast(className, "."), source);
 
         customFileManager.addJavaFileObject(StandardLocation.SOURCE_PATH,
             StringUtils.substringBeforeLast(className, "."), StringUtils.substringAfterLast(className, ".") + ".java",

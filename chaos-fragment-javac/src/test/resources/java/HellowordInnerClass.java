@@ -1,5 +1,5 @@
 
-package hello;
+package chaos;
 
 public class HelloWorld {
 

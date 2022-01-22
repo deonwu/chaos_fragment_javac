@@ -32,13 +32,13 @@ public class TestChaosJava {
      * @throws IOException
      */
     @Test
-    public void testJavaCompile() throws IOException, ClassNotFoundException {
+    public void testJavaCompile() throws Exception {
 
         ChaosJava cj = new ChaosJava();
 
         // 基于宿主类，编译一个片段代码。
         Class newFragmentClass =
-            cj.compile(HelloWordHost.class, "org.chaos.Cur" + System.currentTimeMillis(), getSource("Helloword.java"));
+            cj.compile(HelloWordHost.class, "chaos.HelloWorld", getSource("Helloword.java"));
         Assert.assertNotNull(newFragmentClass, "片段类编译失败");
 
         // 在宿主对象上， 执行片段代码中的方法。

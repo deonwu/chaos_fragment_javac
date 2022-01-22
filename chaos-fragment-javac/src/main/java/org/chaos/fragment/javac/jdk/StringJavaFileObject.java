@@ -26,7 +26,7 @@ public class StringJavaFileObject extends SimpleJavaFileObject {
     private ByteArrayOutputStream classByte = null;
 
     public StringJavaFileObject(String className, String soruce) {
-        super(asURI(className + ".class"), Kind.SOURCE);
+        super(asURI(className + ".java"), Kind.SOURCE);
 
         this.source = soruce;
     }

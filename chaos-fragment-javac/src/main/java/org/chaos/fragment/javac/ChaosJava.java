@@ -12,6 +12,9 @@
  */
 package org.chaos.fragment.javac;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * 代码代码主类
  *
@@ -66,7 +69,14 @@ public class ChaosJava {
      * @param args
      * @return
      */
-    public Object runClass(Object target, Class fragmentClass, String methodName, Object... args){
+    public Object runClass(Object target, Class fragmentClass, String methodName, Object... args) throws Exception {
+        Object f = fragmentClass.newInstance();
+
+        for(Method m : fragmentClass.getMethods()){
+            if(m.getName().equals(methodName)){
+                return m.invoke(f, args);
+            }
+        }
 
         return null;
     }
