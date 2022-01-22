@@ -47,7 +47,7 @@ public class FragmentCompiler {
             StringUtils.substringBeforeLast(className, "."), StringUtils.substringAfterLast(className, ".") + ".java",
             f);
 
-        List<String> options = Arrays.asList("-source", "1.6");
+        List<String> options = Arrays.asList("-source", "1.8");
         JavaCompiler.CompilationTask task =
             compiler.getTask(null, customFileManager, DIAGNOSTIC_COLLECTION, options, null, Arrays.asList(f));
 

@@ -1,3 +1,8 @@
+
+[![Build Status](https://travis-ci.org/deonwu/chaos_fragment_javac.svg?branch=master)](https://travis-ci.org/deonwu/chaos_fragment_javac)
+[![codecov](https://codecov.io/gh/deonwu/chaos_fragment_javac/branch/master/graph/badge.svg)](https://codecov.io/gh/deonwu/chaos_fragment_javac)
+
+
 # chaos_fragment_javac
 
 java 片段代码编译，是用于混沌工程，业务演练的一种技术。通过动态编译部分java代码，让后连接到运行时JVM。实现业务演练的目的。
