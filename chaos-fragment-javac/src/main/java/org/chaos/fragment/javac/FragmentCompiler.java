@@ -12,12 +12,15 @@
  */
 package org.chaos.fragment.javac;
 
+import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.util.JavacTask;
 import org.apache.commons.lang3.StringUtils;
 import org.chaos.fragment.javac.jdk.CompileClassLoader;
 import org.chaos.fragment.javac.jdk.CompileFileManager;
 import org.chaos.fragment.javac.jdk.StringJavaFileObject;
 
 import javax.tools.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +33,7 @@ public class FragmentCompiler {
 
     private DiagnosticCollector<JavaFileObject> DIAGNOSTIC_COLLECTION = new DiagnosticCollector<>();
 
-    public Class doCompiler(String className, String source) throws ClassNotFoundException {
+    public Class doCompiler(String className, String source) throws ClassNotFoundException, IOException {
 
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
@@ -51,6 +54,14 @@ public class FragmentCompiler {
         JavaCompiler.CompilationTask task =
             compiler.getTask(null, customFileManager, DIAGNOSTIC_COLLECTION, options, null, Arrays.asList(f));
 
+        JavacTask javacTask = (JavacTask) task;
+        Iterable<? extends CompilationUnitTree> it = javacTask.parse();
+        for(CompilationUnitTree t : it){
+            System.out.println(t);
+        }
+
+        task =
+                compiler.getTask(null, customFileManager, DIAGNOSTIC_COLLECTION, options, null, Arrays.asList(f));
         Boolean ret = task.call();
         if (!ret) {
             List<Diagnostic<? extends JavaFileObject>> diagnostics = DIAGNOSTIC_COLLECTION.getDiagnostics();

@@ -12,6 +12,7 @@
  */
 package org.chaos.fragment.javac;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -47,12 +48,14 @@ public class ChaosJava {
      *     }
      * }
      *
+     * // 无class，只有一个方法名
+     *
      * @param hosted
      * @param className
      * @param source
      * @return class 返回编译成功的class。
      */
-    public Class compile(Class hosted, String className, String source) throws ClassNotFoundException {
+    public Class compile(Class hosted, String className, String source) throws Exception {
         FragmentCompiler c = new FragmentCompiler();
 
         Class ret = c.doCompiler(className, source);
